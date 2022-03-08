@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.aop.interceptor.ConcurrencyThrottleInterceptorTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-03-01T02:29:08" hostname="枪枪的超算" time="0.182">
+  <properties/>
+  <testcase name="testMultipleThreadsWithLimit1" classname="org.springframework.aop.interceptor.ConcurrencyThrottleInterceptorTests" time="0.114"/>
+  <testcase name="testMultipleThreadsWithLimit10" classname="org.springframework.aop.interceptor.ConcurrencyThrottleInterceptorTests" time="0.065"/>
+  <testcase name="testSerializable" classname="org.springframework.aop.interceptor.ConcurrencyThrottleInterceptorTests" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.aop.target.CommonsPool2TargetSourceProxyTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-03-01T02:29:09" hostname="枪枪的超算" time="0.031">
+  <properties/>
+  <testcase name="testProxy" classname="org.springframework.aop.target.CommonsPool2TargetSourceProxyTests" time="0.031"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
