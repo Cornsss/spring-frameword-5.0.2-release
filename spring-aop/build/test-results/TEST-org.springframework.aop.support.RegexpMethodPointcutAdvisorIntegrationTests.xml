@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.springframework.aop.support.RegexpMethodPointcutAdvisorIntegrationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-03-01T02:29:09" hostname="枪枪的超算" time="0.08">
-  <properties/>
-  <testcase name="testSerialization" classname="org.springframework.aop.support.RegexpMethodPointcutAdvisorIntegrationTests" time="0.044"/>
-  <testcase name="testSinglePattern" classname="org.springframework.aop.support.RegexpMethodPointcutAdvisorIntegrationTests" time="0.013"/>
-  <testcase name="testMultiplePatterns" classname="org.springframework.aop.support.RegexpMethodPointcutAdvisorIntegrationTests" time="0.023"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

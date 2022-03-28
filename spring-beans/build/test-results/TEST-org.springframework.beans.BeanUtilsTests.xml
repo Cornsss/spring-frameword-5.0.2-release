@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.springframework.beans.BeanUtilsTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-02-28T09:40:10" hostname="枪枪的超算" time="30.003">
-  <properties/>
-  <testcase name="testInstantiateClass" classname="org.springframework.beans.BeanUtilsTests" time="30.003"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

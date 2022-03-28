@@ -1140,6 +1140,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 */
 	protected void initBeanWrapper(BeanWrapper bw) {
 		bw.setConversionService(getConversionService());
+		// prepareBeanFactory第三步准备工厂设置的属性编辑器在这里执行
 		registerCustomEditors(bw);
 	}
 
