@@ -1,9 +1,12 @@
 package test;
 
+import mypropertyeditor.AddressPropertyEditorRegistrar;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.PropertyEditorRegistrar;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.config.CustomEditorConfigurer;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,12 +14,17 @@ import org.springframework.stereotype.Component;
  * @Description 自定义bean后置增强类
  * @create 2022-03-02 17:41
  */
-//@Component
-public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
+@Component
+public class MyBeanFactoryPostProcessor extends CustomEditorConfigurer {
+
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		BeanDefinition person = beanFactory.getBeanDefinition("person");
+//		BeanDefinition person = beanFactory.getBeanDefinition("person");
+		PropertyEditorRegistrar[] propertyEditorRegistrars = new PropertyEditorRegistrar[0];
+		propertyEditorRegistrars[0] = new AddressPropertyEditorRegistrar();
+		setPropertyEditorRegistrars(propertyEditorRegistrars);
 		// 可以设置懒加载、role等bean的信息
 		System.out.println("MyBeanFactoryPostProcessor.postProcessBeanFactory");
 	}
+
 }

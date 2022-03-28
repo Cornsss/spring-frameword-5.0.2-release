@@ -533,10 +533,13 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
+				// 扩展点3
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				// 这里是真正调用beanFactory的各种处理器
 				// 执行设置的相关后置处理器的操作:在这一步修改bd对象的相关信息
+				// 有一个自定义属性编辑器的操作，自定义的对象是在这一步进行注入的
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
@@ -657,8 +660,12 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// 这里只是添加了属性编辑注册器，它有实现registerCustomEditors该方法，那么这个方法是什么时候调用的呢？
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
-		// Configure the bean factory with context callbacks.设置需要忽略的aware属性接口的实现
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
+
+		// Configure the bean factory with context callbacks.设置忽略给定接口的自动装配功能
+		// 可以参考：https://www.freesion.com/article/1209111775/
+		// 因为在ApplicationContextAwareProcessor #postProcessBeforeInitialization中处理过以下的Aware接口了
+		// 所以这里要设置忽略。 问：为什么不反过来呢？上面忽略，下面处理（涉及AutoWired实现原理）
 		beanFactory.ignoreDependencyInterface(EnvironmentAware.class);
 		beanFactory.ignoreDependencyInterface(EmbeddedValueResolverAware.class);
 		beanFactory.ignoreDependencyInterface(ResourceLoaderAware.class);
@@ -678,6 +685,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(this));
 
 		// Detect a LoadTimeWeaver and prepare for weaving, if found.
+		// **增加AspectJ的支持，在java中织入的方式分为三种方式，编译器、类加载器、运行期织入
+		//   AspectJ提供两种方式：特殊编译器和类加载织入，类加载期织入就是下面的load time weaving
 		if (beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {
 			beanFactory.addBeanPostProcessor(new LoadTimeWeaverAwareProcessor(beanFactory));
 			// Set a temporary ClassLoader for type matching.
@@ -715,6 +724,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * 单例对象必须在实例化之前执行
 	 */
 	protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
+		// 获取当前应用程序上下文的bfpp变量的值，并且实例化调用执行所有已经注册的bfpp
+		// 默认情况下，通过getBeanFactoryPostProcessors来获取已经注册的bfpp，但默认是空的
+		// 这里是扩展点5，可以自定义BeanFactoryPostProcessor
 		PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
 
 		// Detect a LoadTimeWeaver and prepare for weaving, if found in the meantime

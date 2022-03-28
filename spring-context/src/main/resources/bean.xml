@@ -3,8 +3,29 @@
 	   xmlns="http://www.springframework.org/schema/beans"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
-	<bean id="person" class="test.Person">
+	<!-- 测试自定义属性编辑器 -->
+	<bean id="person" class="mypropertyeditor.Person">
 		<property name="name" value="xingoo"/>
-		<property name="age" value="12"/>
+		<property name="address" value="jiangsu_wuxi_xishan"/>
 	</bean>
+
+	<!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="propertyEditorRegistrars">
+			<list>
+				<bean id="addressPropertyEditorRegistrar" class="mypropertyeditor.AddressPropertyEditorRegistrar"></bean>
+			</list>
+		</property>
+	</bean>-->
+
+	<!-- 方法2 -->
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="mypropertyeditor.Address">
+					<value>mypropertyeditor.MyPropertyEditorSupport</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
 </beans>

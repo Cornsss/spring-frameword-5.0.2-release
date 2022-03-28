@@ -1,5 +1,6 @@
 package test;
 
+import mypropertyeditor.Person;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,6 +21,8 @@ public class Test {
 	public static void main(String[] args) {
 		// 使用xml的方式注册bean并获取
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("bean.xml");//读取bean.xml中的内容
+		Person person = (Person)ctx.getBean("person");
+		System.out.println(person.toString());
 //		ApplicationContext ctx = new ClassPathXmlApplicationContext("bean.xml");//读取bean.xml中的内容
 //		Person p1 = ctx.getBean("person",Person.class);//创建bean的引用对象
 //		p1.info();
