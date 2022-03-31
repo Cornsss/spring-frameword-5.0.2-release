@@ -21,6 +21,7 @@ public class Test {
 	public static void main(String[] args) {
 		// 使用xml的方式注册bean并获取
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("bean.xml");//读取bean.xml中的内容
+//		ApplicationContext ctx = new MyClassPathXmlApplicationContext("bean.xml");
 		Person person = (Person)ctx.getBean("person");
 		System.out.println(person.toString());
 //		ApplicationContext ctx = new ClassPathXmlApplicationContext("bean.xml");//读取bean.xml中的内容

@@ -54,12 +54,17 @@ class PostProcessorRegistrationDelegate {
 			ConfigurableListableBeanFactory beanFactory, List<BeanFactoryPostProcessor> beanFactoryPostProcessors) {
 
 		// Invoke BeanDefinitionRegistryPostProcessors first, if any.
+		// 已经执行过的BFPP集合，防止重复处理
 		Set<String> processedBeans = new HashSet<>();
 
 		/**
 		 * 分类执行BFPP对象：
-		 * （1）先执行PriorityOrdered.class
-		 * （2）执行Ordered.class
+		 1.	子类BDRPP的postProcessBeanDefinitionRegistry方法
+		 2.	子类BFPP的postProcessBeanFactory方法
+		 	如果实现了Order接口，则如果有多个BDRPP或者BFPP则根据order的顺序执行
+		 3.	内部bean工厂的BDRPP
+		 4.	内部bean工厂的BFPP
+		 	如果实现了Order接口，则如果有多个BDRPP或者BFPP则根据order的顺序执行
 		 */
 		if (beanFactory instanceof BeanDefinitionRegistry) {
 			BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
@@ -85,6 +90,7 @@ class PostProcessorRegistrationDelegate {
 			List<BeanDefinitionRegistryPostProcessor> currentRegistryProcessors = new ArrayList<>();
 
 			// First, invoke the BeanDefinitionRegistryPostProcessors that implement PriorityOrdered.
+			// 先执行BDRPP的postProcessBeanDefinitionRegistry方法
 			String[] postProcessorNames =
 					beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);
 			for (String ppName : postProcessorNames) {
@@ -131,6 +137,8 @@ class PostProcessorRegistrationDelegate {
 
 			// Now, invoke the postProcessBeanFactory callback of all processors handled so far.
 			invokeBeanFactoryPostProcessors(registryProcessors, beanFactory);
+			// 如果是通过super.addBeanFactoryPostProcessor(new MyBeanFactoryPostProcessor());这种方式添加的bfpp
+			// 则在这里执行postFactoryProcessor方法
 			invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory);
 		}
 
@@ -141,6 +149,7 @@ class PostProcessorRegistrationDelegate {
 
 		// Do not initialize FactoryBeans here: We need to leave all regular beans
 		// uninitialized to let the bean factory post-processors apply to them!
+		// 如果是通过bean注入的方式添加的bfpp，在这里获取并执行
 		String[] postProcessorNames =
 				beanFactory.getBeanNamesForType(BeanFactoryPostProcessor.class, true, false);
 

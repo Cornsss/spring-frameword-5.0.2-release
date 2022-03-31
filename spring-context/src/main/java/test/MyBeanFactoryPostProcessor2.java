@@ -1,6 +1,5 @@
 package test;
 
-import mypropertyeditor.Address;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -14,13 +13,13 @@ import org.springframework.stereotype.Component;
  * @Description bd的增强类：在bd初始化之前对bd进行修改的扩展类
  * @create 2022-03-30 14:36
  */
-//@Component
-//@Order(80)
-public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
+@Component
+@Order(70)
+public class MyBeanFactoryPostProcessor2 implements BeanFactoryPostProcessor {
 
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		System.out.println("3. BFPP----MyBeanFactoryPostProcessor.postProcessBeanFactory");
+		System.out.println("3. BFPP----MyBeanFactoryPostProcessor2.postProcessBeanFactory");
 		BeanDefinition person = beanFactory.getBeanDefinition("person");
 		MutablePropertyValues propertyValues = person.getPropertyValues();
 		if (propertyValues.contains("name")) {
