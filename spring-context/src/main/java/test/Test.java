@@ -23,7 +23,9 @@ public class Test {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("bean.xml");//读取bean.xml中的内容
 //		ApplicationContext ctx = new MyClassPathXmlApplicationContext("bean.xml");
 		Person person = (Person)ctx.getBean("person");
+		Leg leg = (Leg)ctx.getBean("leg");
 		System.out.println(person.toString());
+		System.out.println(leg.toString());
 //		ApplicationContext ctx = new ClassPathXmlApplicationContext("bean.xml");//读取bean.xml中的内容
 //		Person p1 = ctx.getBean("person",Person.class);//创建bean的引用对象
 //		p1.info();

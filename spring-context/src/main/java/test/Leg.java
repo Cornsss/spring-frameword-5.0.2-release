@@ -8,6 +8,10 @@ package test;
 public class Leg {
 	private int nums;
 
+	public Leg() {
+		System.out.println("Leg No arg Constructor");
+	}
+
 	public Leg(int nums) {
 		this.nums = nums;
 	}
@@ -22,5 +26,12 @@ public class Leg {
 
 	public void info(){
 		System.out.println("Leg has "+nums);
+	}
+
+	@Override
+	public String toString() {
+		return "Leg{" +
+				"nums=" + nums +
+				'}';
 	}
 }
