@@ -294,6 +294,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		SingletonBeanRegistry sbr = null;
 		if (registry instanceof SingletonBeanRegistry) {
 			sbr = (SingletonBeanRegistry) registry;
+			// 判断是否有自定义的beanName生成器
 			if (!this.localBeanNameGeneratorSet) {
 				BeanNameGenerator generator = (BeanNameGenerator) sbr.getSingleton(CONFIGURATION_BEAN_NAME_GENERATOR);
 				if (generator != null) {
@@ -308,6 +309,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		}
 
 		// Parse each @Configuration class
+		// 实例化ConfigurationClassParser类，初始化相关参数帮助完成bean的解析工作
 		ConfigurationClassParser parser = new ConfigurationClassParser(
 				this.metadataReaderFactory, this.problemReporter, this.environment,
 				this.resourceLoader, this.componentScanBeanNameGenerator, registry);

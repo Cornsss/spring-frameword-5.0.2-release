@@ -520,29 +520,30 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	public void refresh() throws BeansException, IllegalStateException {
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
-			// 准备context上下文环境（一共有4个操作，进入可查看具体）
+			// 1. 准备context上下文环境（一共有4个操作，进入可查看具体）
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
-			// 创建当前环境的容器对象BeanFactory：DefaultListableBeanFactory,有父子容器的概念，子容器没有去父容器找
+			// 2. 创建当前环境的容器对象BeanFactory：DefaultListableBeanFactory,有父子容器的概念，子容器没有去父容器找
 			// 读取配置加载到BeanDefinition
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
-			// Prepare the bean factory for use in this context.// 设置容器相关初始化的操作
+			// 3. Prepare the bean factory for use in this context.// 设置容器相关初始化的操作
 			prepareBeanFactory(beanFactory);
 
 			try {
 				// Allows post-processing of the bean factory in context subclasses.
-				// 扩展点3
+				// 4. 扩展点3
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
-				// 这里是真正调用beanFactory的各种处理器
+				// 5. 这里是真正调用beanFactory的各种处理器
 				// 执行设置的相关后置处理器的操作:在这一步修改bd对象的相关信息
 				// 有一个自定义属性编辑器的操作，自定义的对象是在这一步进行注入的
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				// 6. 注册bean处理器，这里只是注册，真正调用是getBean
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.国际化操作

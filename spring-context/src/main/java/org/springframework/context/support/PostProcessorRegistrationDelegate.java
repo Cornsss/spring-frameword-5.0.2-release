@@ -205,6 +205,8 @@ class PostProcessorRegistrationDelegate {
 		// Register BeanPostProcessorChecker that logs an info message when
 		// a bean is created during BeanPostProcessor instantiation, i.e. when
 		// a bean is not eligible for getting processed by all BeanPostProcessors.
+		// 这里计算出beanPostProcessor注入的个数，+1的原因：方法最后加了一个ApplicationListenerDetector
+		// beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(applicationContext));
 		int beanProcessorTargetCount = beanFactory.getBeanPostProcessorCount() + 1 + postProcessorNames.length;
 		beanFactory.addBeanPostProcessor(new BeanPostProcessorChecker(beanFactory, beanProcessorTargetCount));
 
