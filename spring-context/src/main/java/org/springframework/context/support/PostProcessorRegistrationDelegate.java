@@ -205,13 +205,16 @@ class PostProcessorRegistrationDelegate {
 		// Register BeanPostProcessorChecker that logs an info message when
 		// a bean is created during BeanPostProcessor instantiation, i.e. when
 		// a bean is not eligible for getting processed by all BeanPostProcessors.
-		// 这里计算出beanPostProcessor注入的个数，+1的原因：方法最后加了一个ApplicationListenerDetector
-		// beanFactory.addBeanPostProcessor(new ApplicationListenerDetector(applicationContext));
+		// 这里计算出beanPostProcessor注入的个数，+1的原因：方法后面加了BeanPostProcessorChecker
 		int beanProcessorTargetCount = beanFactory.getBeanPostProcessorCount() + 1 + postProcessorNames.length;
+		// BeanPostProcessorChecker主要用于日志记录，判断beanPostProcessor是否符合执行条件
 		beanFactory.addBeanPostProcessor(new BeanPostProcessorChecker(beanFactory, beanProcessorTargetCount));
 
 		// Separate between BeanPostProcessors that implement PriorityOrdered,
 		// Ordered, and the rest.
+		// 将BeanPostProcessors分类为PriorityOrdered、Ordered、the rest.
+		// 这里有一个疑问：为什么分类的集合中会有一个internalPostProcessors
+		// 1. BeanFactory接口中说明：在bean工厂shutdown的时候，会调用 postProcessBeforeDestruction#DestructionAwareBeanPostProcessor
 		List<BeanPostProcessor> priorityOrderedPostProcessors = new ArrayList<>();
 		List<BeanPostProcessor> internalPostProcessors = new ArrayList<>();
 		List<String> orderedPostProcessorNames = new ArrayList<>();

@@ -31,5 +31,4 @@
 <!--	<bean id="myPropertyEditorSupportBeanFactoryPostProcessor" class="test.MyPropertyEditorSupportBeanFactoryPostProcessor"></bean>-->
 	<bean id="myBeanFactoryPostProcessor" class="test.MyBeanFactoryPostProcessor"></bean>
 	<bean id="myBeanDefinitionRegistryPostProcessor" class="test.MyBeanDefinitionRegistryPostProcessor"></bean>
-
 </beans>
