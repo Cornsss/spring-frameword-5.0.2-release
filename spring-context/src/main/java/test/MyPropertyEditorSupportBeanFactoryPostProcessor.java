@@ -1,13 +1,10 @@
 package test;
 
-import mypropertyeditor.AddressPropertyEditorRegistrar;
+import mypropertyeditor.DatePropertyEditorRegistrar;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyEditorRegistrar;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.CustomEditorConfigurer;
-import org.springframework.stereotype.Component;
 
 /**
  * @author zhuling
@@ -21,7 +18,7 @@ public class MyPropertyEditorSupportBeanFactoryPostProcessor extends CustomEdito
 //		BeanDefinition person = beanFactory.getBeanDefinition("person");
 		System.out.println("MyPropertyEditorSupportBeanFactoryPostProcessor.postProcessBeanFactory");
 		PropertyEditorRegistrar[] propertyEditorRegistrars = new PropertyEditorRegistrar[0];
-		propertyEditorRegistrars[0] = new AddressPropertyEditorRegistrar();
+		propertyEditorRegistrars[0] = new DatePropertyEditorRegistrar();
 		setPropertyEditorRegistrars(propertyEditorRegistrars);
 	}
 

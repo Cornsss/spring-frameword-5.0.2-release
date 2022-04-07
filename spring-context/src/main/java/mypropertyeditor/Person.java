@@ -1,12 +1,15 @@
 package mypropertyeditor;
 
 import org.springframework.stereotype.Component;
-import test.Leg;
+
+import java.util.Date;
 
 @Component
 public class Person {
 
 	private String name;
+
+	private Date birth;
 
 	private Address address;
 
@@ -26,11 +29,20 @@ public class Person {
 		this.address = address;
 	}
 
+	public Date getBirth() {
+		return birth;
+	}
+
+	public void setBirth(Date birth) {
+		this.birth = birth;
+	}
+
 	@Override
 	public String toString() {
 		return "Person{" +
 				"name='" + name + '\'' +
-				", address=" + address.toString() +
+				", birth=" + birth +
+				", address=" + address +
 				'}';
 	}
 }

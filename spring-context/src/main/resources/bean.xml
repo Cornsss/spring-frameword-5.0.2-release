@@ -7,27 +7,32 @@
 	<!-- 测试自定义属性编辑器 -->
 	<bean id="person" class="mypropertyeditor.Person">
 		<property name="name" value="xingoo"/>
+		<property name="birth" value="2022-04-07"/>
 		<property name="address" value="jiangsu_wuxi_xishan"/>
 	</bean>
 
-	<!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
 		<property name="propertyEditorRegistrars">
 			<list>
 				<bean id="addressPropertyEditorRegistrar" class="mypropertyeditor.AddressPropertyEditorRegistrar"></bean>
+				<bean id="datePropertyEditorRegistrar" class="mypropertyeditor.DatePropertyEditorRegistrar"></bean>
 			</list>
 		</property>
-	</bean>-->
+	</bean>
 
 	<!-- 方法2 -->
-	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+	<!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
 		<property name="customEditors">
 			<map>
 				<entry key="mypropertyeditor.Address">
-					<value>mypropertyeditor.MyPropertyEditorSupport</value>
+					<value>mypropertyeditor.DatePropertyEditorSupport</value>
+				</entry>
+				<entry key="mypropertyeditor.Person">
+					<value>mypropertyeditor.MyPropertyDateEditorSupport</value>
 				</entry>
 			</map>
 		</property>
-	</bean>
+	</bean>-->
 <!--	<bean id="myPropertyEditorSupportBeanFactoryPostProcessor" class="test.MyPropertyEditorSupportBeanFactoryPostProcessor"></bean>-->
 	<bean id="myBeanFactoryPostProcessor" class="test.MyBeanFactoryPostProcessor"></bean>
 	<bean id="myBeanDefinitionRegistryPostProcessor" class="test.MyBeanDefinitionRegistryPostProcessor"></bean>

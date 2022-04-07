@@ -1,10 +1,7 @@
-package mylistener;
+package mypropertyeditor;
 
-import mypropertyeditor.Person;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import test.Leg;
 
 /**
  * @author zhuling
@@ -16,8 +13,8 @@ public class Test {
 
 	public static void main(String[] args) {
 		// 使用xml的方式注册bean并获取
-		ApplicationContext ctx = new ClassPathXmlApplicationContext("bean2.xml");//读取bean.xml中的内容
-		MyTestEvent myTestEvent = new MyTestEvent("hello", "listener starting...");
-		ctx.publishEvent(myTestEvent);
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("bean.xml");//读取bean.xml中的内容
+		Person person = (Person)ctx.getBean("person");
+		System.out.println(person.toString());
 	}
 }
