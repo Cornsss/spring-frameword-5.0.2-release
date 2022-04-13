@@ -27,8 +27,8 @@
 				<entry key="mypropertyeditor.Address">
 					<value>mypropertyeditor.DatePropertyEditorSupport</value>
 				</entry>
-				<entry key="mypropertyeditor.Person">
-					<value>mypropertyeditor.MyPropertyDateEditorSupport</value>
+				<entry key="java.util.Date">
+					<value>mypropertyeditor.DatePropertyEditorSupport</value>
 				</entry>
 			</map>
 		</property>

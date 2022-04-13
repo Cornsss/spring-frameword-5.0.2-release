@@ -132,7 +132,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 			beanFactory.setSerializationId(getId());
 			// 第2个扩展点，支持定制化beanFactory
 			customizeBeanFactory(beanFactory);
-			// 用了适配器模式,不同的配置使用不同的配置类装载bean
+			// 用了适配器模式,不同的配置使用不同的配置类装载bean，本质就是解析各种标签、注解然后把bean信息存入集合中
 			loadBeanDefinitions(beanFactory);
 			synchronized (this.beanFactoryMonitor) {
 				this.beanFactory = beanFactory;

@@ -525,7 +525,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 			// Tell the subclass to refresh the internal bean factory.
 			// 2. 创建当前环境的容器对象BeanFactory：DefaultListableBeanFactory,有父子容器的概念，子容器没有去父容器找
-			// 读取配置加载到BeanDefinition
+			// 读取配置加载到BeanDefinition，loadBeanDefinition
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// 3. Prepare the bean factory for use in this context.// 设置容器相关初始化的操作
@@ -607,7 +607,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize any placeholder property sources in the context environment
-		// No.1（第一个留给用户扩展的点）在上下文环境中初始化一些占位符资源，为后续扩展使用:do nothing
+		// No.1（第1个扩展点）在上下文环境中初始化一些占位符资源，为后续扩展使用:do nothing
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable
@@ -715,7 +715,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @param beanFactory the bean factory used by the application context
 	 */
 	protected void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
-		System.out.println("AbstractApplicationContext.postProcessBeanFactory");
+
 	}
 
 	/**
@@ -883,7 +883,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
 		// Initialize conversion service for this context.
-		// 初始化context的转换服务：例如String转date
+		// 初始化context的转换服务：例如String转date(对PropertyEditorSupport的丰富处理)
 		if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &&
 				beanFactory.isTypeMatch(CONVERSION_SERVICE_BEAN_NAME, ConversionService.class)) {
 			beanFactory.setConversionService(
@@ -893,6 +893,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// Register a default embedded value resolver if no bean post-processor
 		// (such as a PropertyPlaceholderConfigurer bean) registered any before:
 		// at this point, primarily for resolution in annotation attribute values.
+		// 如果在之前没有注册bpp，例如PropertyPlaceholderConfigurer，那么就注册默认的嵌入值处理器，主要用于注解属性值的解析
 		if (!beanFactory.hasEmbeddedValueResolver()) {
 			beanFactory.addEmbeddedValueResolver(strVal -> getEnvironment().resolvePlaceholders(strVal));
 		}
@@ -907,9 +908,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.setTempClassLoader(null);
 
 		// Allow for caching all bean definition metadata, not expecting further changes.
+		// 冻结bean的定义信息，不允许修改
 		beanFactory.freezeConfiguration();
 
 		// Instantiate all remaining (non-lazy-init) singletons.
+		// 实例化剩下的单例bean
 		beanFactory.preInstantiateSingletons();
 	}
 
