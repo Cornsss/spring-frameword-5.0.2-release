@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<context:component-scan base-package="test"></context:component-scan>
+	<!-- 测试自定义属性编辑器 -->
+	<bean id="person" class="mypropertyeditor.Person">
+		<property name="name" value="xingoo"/>
+		<property name="birth" value="2022-04-07"/>
+		<property name="address" value="jiangsu_wuxi_xishan"/>
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="propertyEditorRegistrars">
+			<list>
+				<bean id="addressPropertyEditorRegistrar" class="mypropertyeditor.AddressPropertyEditorRegistrar"></bean>
+				<bean id="datePropertyEditorRegistrar" class="mypropertyeditor.DatePropertyEditorRegistrar"></bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 方法2 -->
+	<!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="mypropertyeditor.Address">
+					<value>mypropertyeditor.DatePropertyEditorSupport</value>
+				</entry>
+				<entry key="java.util.Date">
+					<value>mypropertyeditor.DatePropertyEditorSupport</value>
+				</entry>
+			</map>
+		</property>
+	</bean>-->
+<!--	<bean id="myPropertyEditorSupportBeanFactoryPostProcessor" class="test.MyPropertyEditorSupportBeanFactoryPostProcessor"></bean>-->
+	<bean id="myBeanFactoryPostProcessor" class="test.MyBeanFactoryPostProcessor"></bean>
+	<bean id="myBeanDefinitionRegistryPostProcessor" class="test.MyBeanDefinitionRegistryPostProcessor"></bean>
+</beans>
